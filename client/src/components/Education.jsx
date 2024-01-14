@@ -15,35 +15,16 @@ import SchoolIcon from "@mui/icons-material/School";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
 import GradeIcon from "@mui/icons-material/Grade";
 
+import { useDispatch, useSelector } from "react-redux";
+import { updateEducation } from "../redux/educationSlice";
 
 const Education = () => {
-  const [educationDetails, setEducationDetails] = useState({
-    college: "",
-    year: "",
-    field: "",
-    branch: "",
-    startYear: "",
-    endYear: "",
-    city: "",
-    grades: "",
-    higherCollege: "",
-    startYear2: "",
-    endYear2: "",
-    city2: "",
-    percentage: "",
-    school: "",
-    startYear3: "",
-    endYear3: "",
-    city3: "",
-    percentage2: "",
-  });
+  const dispatch = useDispatch();
+  const education = useSelector((state) => state.educationDetails);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setEducationDetails((prevDetails) => ({
-      ...prevDetails,
-      [name]: value,
-    }));
+    dispatch(updateEducation({ [name]: value }));
   };
 
   const containerStyle = {
@@ -106,7 +87,7 @@ const Education = () => {
                       </InputAdornment>
                     ),
                   }}
-                  value={educationDetails.college}
+                  value={education.college}
                   onChange={handleChange}
                 />
               </Grid>
@@ -118,7 +99,7 @@ const Education = () => {
                   name="year"
                   label="Year"
                   style={{ width: "100%" }}
-                  value={educationDetails.year}
+                  value={education.year}
                   onChange={handleChange}
                 >
                   <MenuItem value="F.E">F.E</MenuItem>
@@ -136,7 +117,7 @@ const Education = () => {
                   label="Field of Study"
                   style={{ width: "100%" }}
                   required
-                  value={educationDetails.field}
+                  value={education.field}
                   onChange={handleChange}
                 >
                   <MenuItem value="" disabled>
@@ -161,7 +142,7 @@ const Education = () => {
                   label="Select Branch"
                   style={{ width: "100%" }}
                   required
-                  value={educationDetails.branch}
+                  value={education.branch}
                   onChange={handleChange}
                 >
                   <MenuItem value="" disabled>
@@ -191,7 +172,7 @@ const Education = () => {
                       </InputAdornment>
                     ),
                   }}
-                  value={educationDetails.startYear}
+                  value={education.startYear}
                   onChange={handleChange}
                 >
                   <MenuItem value="" disabled>
@@ -221,7 +202,7 @@ const Education = () => {
                       </InputAdornment>
                     ),
                   }}
-                  value={educationDetails.endYear}
+                  value={education.endYear}
                   onChange={handleChange}
                 >
                   <MenuItem value="" disabled>
@@ -253,7 +234,7 @@ const Education = () => {
                       </InputAdornment>
                     ),
                   }}
-                  value={educationDetails.city}
+                  value={education.city}
                   onChange={handleChange}
                 />
               </Grid>
@@ -273,7 +254,7 @@ const Education = () => {
                       </InputAdornment>
                     ),
                   }}
-                  value={educationDetails.grades}
+                  value={education.grades}
                   onChange={handleChange}
                 />
               </Grid>
@@ -306,7 +287,7 @@ const Education = () => {
                       </InputAdornment>
                     ),
                   }}
-                  value={educationDetails.higherCollege}
+                  value={education.higherCollege}
                   onChange={handleChange}
                 />
               </Grid>
@@ -327,7 +308,7 @@ const Education = () => {
                       </InputAdornment>
                     ),
                   }}
-                  value={educationDetails.startYear2}
+                  value={education.startYear2}
                   onChange={handleChange}
                 >
                   <MenuItem value="" disabled>
@@ -357,7 +338,7 @@ const Education = () => {
                       </InputAdornment>
                     ),
                   }}
-                  value={educationDetails.endYear2}
+                  value={education.endYear2}
                   onChange={handleChange}
                 >
                   <MenuItem value="" disabled>
@@ -381,7 +362,6 @@ const Education = () => {
                   name="city2"
                   label="City"
                   style={{ width: "100%" }}
-
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -391,7 +371,7 @@ const Education = () => {
                       </InputAdornment>
                     ),
                   }}
-                  value={educationDetails.city2}
+                  value={education.city2}
                   onChange={handleChange}
                 />
               </Grid>
@@ -412,7 +392,7 @@ const Education = () => {
                       </InputAdornment>
                     ),
                   }}
-                  value={educationDetails.percentage}
+                  value={education.percentage}
                   onChange={handleChange}
                 />
               </Grid>
@@ -435,7 +415,7 @@ const Education = () => {
                   name="school"
                   label="School Name"
                   style={{ width: "100%" }}
-                  value={educationDetails.school}
+                  value={education.school}
                   required
                   onChange={handleChange}
                   InputProps={{
@@ -458,7 +438,7 @@ const Education = () => {
                   label="Start Year"
                   style={{ width: "100%" }}
                   onChange={handleChange}
-                  value={educationDetails.startYear}
+                  value={education.startYear}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -487,7 +467,7 @@ const Education = () => {
                   name="endYear"
                   label="End Year"
                   style={{ width: "100%" }}
-                  value={educationDetails.endYear}
+                  value={education.endYear}
                   onChange={handleChange}
                   InputProps={{
                     endAdornment: (
@@ -520,7 +500,7 @@ const Education = () => {
                   name="city3"
                   label="City"
                   style={{ width: "100%" }}
-                  value={educationDetails.city3}
+                  value={education.city3}
                   onChange={handleChange}
                   InputProps={{
                     endAdornment: (
@@ -541,7 +521,7 @@ const Education = () => {
                   name="percentage2"
                   label="Percentage"
                   style={{ width: "100%" }}
-                  value={educationDetails.percentage2}
+                  value={education.percentage2}
                   onChange={handleChange}
                   InputProps={{
                     endAdornment: (

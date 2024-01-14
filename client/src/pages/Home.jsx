@@ -22,11 +22,10 @@ const Home = () => {
   const [downloadDialogOpen, setDownloadDialogOpen] = useState(false);
   const [resumeData, setResumeData] = useState(null);
 
-  const profile = useSelector((state) => state.form);
+  const profile = useSelector((state) => state.profileDetails);
+  const education = useSelector((state) => state.educationDetails);
+  const projects = useSelector((state) => state.projectDetails);
 
-  // useEffect(() => {
-  //   console.log("ProfileData:", profile);
-  // }, [profile]);
   //handling next
   const handleNext = () => {
     if (activeComponent === "profile") {
@@ -95,8 +94,8 @@ const Home = () => {
     try {
       const response = await axios.post("/api/generateResume", {
         profile,
-        // education:
-        // projects:
+        education,
+        projects,
         // experience:
         // extraDetails:
       });

@@ -13,23 +13,20 @@ import {
 import TitleIcon from "@mui/icons-material/Title";
 import DescriptionIcon from "@mui/icons-material/Description";
 import LinkIcon from "@mui/icons-material/Link";
-
-
+import { useDispatch, useSelector } from "react-redux";
+import { updateProject, addProject } from "../redux/projectSlice";
 
 const Projects = () => {
-  const [projects, setProjects] = useState([
-    { title: "", description: "", link: "" },
-  ]);
+  const dispatch = useDispatch();
+  const projects = useSelector((state) => state.projectDetails);
 
   const handleInputChange = (index, event) => {
     const { name, value } = event.target;
-    const newProjects = [...projects];
-    newProjects[index][name] = value;
-    setProjects(newProjects);
+    dispatch(updateProject({ index, field: name, value }));
   };
 
   const handleAddProject = () => {
-    setProjects([...projects, { title: "", description: "", link: "" }]);
+    dispatch(addProject());
   };
 
   const containerStyle = {
@@ -53,7 +50,9 @@ const Projects = () => {
       <CardContent>
         {projects.map((project, index) => (
           <div key={index}>
-            <Typography variant="h5" sx={{marginTop:'8px'}}>Project {index + 1}</Typography>
+            <Typography variant="h5" sx={{ marginTop: "8px" }}>
+              Project {index + 1}
+            </Typography>
             <Grid container spacing={1} alignItems="center" lg={12}>
               <Grid item md={12} sm={12} xs={12} lg={12}>
                 <TextField

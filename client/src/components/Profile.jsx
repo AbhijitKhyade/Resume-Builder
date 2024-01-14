@@ -21,7 +21,7 @@ import { updateProfile } from "../redux/profileSlice";
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const profile = useSelector((state) => state.form);
+  const profile = useSelector((state) => state.profileDetails);
 
   // console.log("Profilepage:", profile);
 
