@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Card,
   CardContent,
@@ -10,41 +10,41 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import InterestsIcon from '@mui/icons-material/Interests';
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import InterestsIcon from "@mui/icons-material/Interests";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addSkills,
+  addAchievements,
+  addHobbies,
+  updateSkills,
+  updateAchievements,
+  updateHobbies,
+} from "../redux/extraDetailsSlice";
 
 const ExtraDetails = () => {
-  const [skills, setSkills] = useState([""]);
-  const [achievements, setAchievements] = useState([""]);
-  const [hobbies, setHobbies] = useState([""]);
+  const dispatch = useDispatch();
+  const extraDetails = useSelector((state) => state.extraDetails);
 
-  const handleAddSkill = () => {
-    setSkills([...skills, ""]);
-  };
-
-  const handleAddAchievement = () => {
-    setAchievements([...achievements, ""]);
-  };
-
-  const handleAddHobby = () => {
-    setHobbies([...hobbies, ""]);
-  };
-
-  const handleInputChange = (index, type, value) => {
-    // Copy the current array
-    const newArray = [...type];
-    // Update the value at the specified index
-    newArray[index] = value;
-    // Update the state with the new array
-    if (type === skills) {
-      setSkills(newArray);
-    } else if (type === achievements) {
-      setAchievements(newArray);
-    } else if (type === hobbies) {
-      setHobbies(newArray);
+  const handleAddItem = (type) => {
+    if (type === "skills") {
+      dispatch(addSkills());
+    } else if (type === "achievements") {
+      dispatch(addAchievements());
+    } else if (type === "hobbies") {
+      dispatch(addHobbies());
     }
   };
 
+  const handleInputChange = (index, type, value) => {
+    if (type === "skills") {
+      dispatch(updateSkills({ index, value }));
+    } else if (type === "achievements") {
+      dispatch(updateAchievements({ index, value }));
+    } else if (type === "hobbies") {
+      dispatch(updateHobbies({ index, value }));
+    }
+  };
   const containerStyle = {
     marginTop: "30",
     display: "flex",
@@ -70,7 +70,7 @@ const ExtraDetails = () => {
             Skills
           </Typography>
           <Grid container spacing={2} alignItems="center" lg={12}>
-            {skills.map((skill, index) => (
+            {extraDetails.skills.map((skill, index) => (
               <Grid item md={4} sm={6} xs={12} key={index}>
                 <TextField
                   margin="dense"
@@ -80,12 +80,19 @@ const ExtraDetails = () => {
                   label={`Skill ${index + 1}`}
                   style={{ width: "100%" }}
                   value={skill}
-                  onChange={(e) => handleInputChange(index, skills, e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange(index, "skills", e.target.value)
+                  }
                 />
               </Grid>
             ))}
           </Grid>
-          <Button variant="contained" color="primary" sx={{marginTop:'8px'}} onClick={handleAddSkill}>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ marginTop: "15px" }}
+            onClick={() => handleAddItem("skills")}
+          >
             Add Skill
           </Button>
         </div>
@@ -96,7 +103,7 @@ const ExtraDetails = () => {
             Achievements
           </Typography>
           <Grid container spacing={2} alignItems="center" lg={12}>
-            {achievements.map((achievement, index) => (
+            {extraDetails.achievements.map((achievement, index) => (
               <Grid item md={4} sm={6} xs={12} key={index}>
                 <TextField
                   margin="dense"
@@ -106,7 +113,9 @@ const ExtraDetails = () => {
                   label={`Achievement ${index + 1}`}
                   style={{ width: "100%" }}
                   value={achievement}
-                  onChange={(e) => handleInputChange(index, achievements, e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange(index, "achievements", e.target.value)
+                  }
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -123,8 +132,8 @@ const ExtraDetails = () => {
           <Button
             variant="contained"
             color="primary"
-            sx={{marginTop:'8px'}}
-            onClick={handleAddAchievement}
+            sx={{ marginTop: "15px" }}
+            onClick={() => handleAddItem("achievements")}
           >
             Add Achievement
           </Button>
@@ -136,7 +145,7 @@ const ExtraDetails = () => {
             Hobbies/Interests
           </Typography>
           <Grid container spacing={2} alignItems="center" lg={12}>
-            {hobbies.map((hobby, index) => (
+            {extraDetails.hobbies.map((hobby, index) => (
               <Grid item md={4} sm={6} xs={12} key={index}>
                 <TextField
                   margin="dense"
@@ -146,7 +155,9 @@ const ExtraDetails = () => {
                   label={`Hobby ${index + 1}`}
                   style={{ width: "100%" }}
                   value={hobby}
-                  onChange={(e) => handleInputChange(index, hobbies, e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange(index, "hobbies", e.target.value)
+                  }
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -160,7 +171,12 @@ const ExtraDetails = () => {
               </Grid>
             ))}
           </Grid>
-          <Button variant="contained" color="primary" sx={{marginTop:'8px'}} onClick={handleAddHobby}>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ marginTop: "15px" }}
+            onClick={() => handleAddItem("hobbies")}
+          >
             Add Hobby
           </Button>
         </div>

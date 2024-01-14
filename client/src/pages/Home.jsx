@@ -25,6 +25,8 @@ const Home = () => {
   const profile = useSelector((state) => state.profileDetails);
   const education = useSelector((state) => state.educationDetails);
   const projects = useSelector((state) => state.projectDetails);
+  const experience = useSelector((state) => state.experienceDetails);
+  const extraDetails = useSelector((state) => state.extraDetails);
 
   //handling next
   const handleNext = () => {
@@ -82,29 +84,49 @@ const Home = () => {
     }
   };
 
-  const handleDownloadDialogOpen = () => {
-    setDownloadDialogOpen(true);
-  };
+  // const handleDownloadDialogOpen = () => {
+  //   setDownloadDialogOpen(true);
+  // };
 
-  const handleDownloadDialogClose = () => {
-    setDownloadDialogOpen(false);
-  };
+  // const handleDownloadDialogClose = () => {
+  //   setDownloadDialogOpen(false);
+  // };
 
   const handleGenerateResume = async () => {
     try {
-      const response = await axios.post("/api/generateResume", {
-        profile,
-        education,
-        projects,
-        // experience:
-        // extraDetails:
-      });
+      const response = await axios.post(
+        "http://localhost:8080/resume/generateResume",
+        {
+          userData: {
+            profile,
+            education,
+            projects,
+            experience,
+            extraDetails,
+          },
+        }
+      );
+      // console.log(response.data.data);
+      const pdfData = response.data.pdf;
 
-      // Save the generated resume data
+      // Convert the received PDF data into a Blob
+      const blob = new Blob([pdfData], { type: "application/pdf" });
+
+      // Create a link element to trigger the download
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "resume.pdf";
+
+      // Append the link to the document, trigger the click, and then remove the link
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Save the generated resume data (if needed)
       setResumeData(response.data);
 
       // Open the download dialog
-      handleDownloadDialogOpen();
+      // handleDownloadDialogOpen();
     } catch (error) {
       console.error("Error generating resume:", error);
     }
@@ -150,7 +172,7 @@ const Home = () => {
                 <Button variant="contained" onClick={handleGenerateResume}>
                   Download
                 </Button>
-                <Dialog
+                {/* <Dialog
                   open={downloadDialogOpen}
                   onClose={handleDownloadDialogClose}
                 >
@@ -172,7 +194,7 @@ const Home = () => {
                       OK
                     </Button>
                   </DialogActions>
-                </Dialog>
+                </Dialog> */}
               </>
             )}
           </div>

@@ -108,7 +108,6 @@ const Projects = () => {
                   style={{ width: "100%" }}
                   value={project.link}
                   onChange={(event) => handleInputChange(index, event)}
-                  required
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">

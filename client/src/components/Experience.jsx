@@ -10,25 +10,24 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import CorporateFareIcon from '@mui/icons-material/CorporateFare';
-import TimelapseIcon from '@mui/icons-material/Timelapse';
-import DescriptionIcon from '@mui/icons-material/Description';
-import WorkIcon from '@mui/icons-material/Work';
+import CorporateFareIcon from "@mui/icons-material/CorporateFare";
+import TimelapseIcon from "@mui/icons-material/Timelapse";
+import DescriptionIcon from "@mui/icons-material/Description";
+import WorkIcon from "@mui/icons-material/Work";
+import { useDispatch, useSelector } from "react-redux";
+import { addExperience, updateExperience } from "../redux/experienceSlice";
 
 const Experience = () => {
-  const [experiences, setExperiences] = useState([
-    { institute: "", position: "", duration: "", desc: "" },
-  ]);
+  const dispatch = useDispatch();
+  const experiences = useSelector((state) => state.experienceDetails);
 
   const handleInputChange = (index, event) => {
     const { name, value } = event.target;
-    const newExperiences = [...experiences];
-    newExperiences[index][name] = value;
-    setExperiences(newExperiences);
+    dispatch(updateExperience({ index, field: name, value }));
   };
 
   const handleAddExperience = () => {
-    setExperiences([...experiences, { institute: "", position: "", duration: "", desc: "" }]);
+    dispatch(addExperience());
   };
 
   const containerStyle = {
@@ -52,7 +51,9 @@ const Experience = () => {
       <CardContent>
         {experiences.map((experience, index) => (
           <div key={index}>
-            <Typography variant="h5" sx={{marginTop:'8px'}}>Experience {index+1}</Typography>
+            <Typography variant="h5" sx={{ marginTop: "8px" }}>
+              Experience {index + 1}
+            </Typography>
             <Grid container spacing={1} alignItems="center" lg={12}>
               <Grid item md={4} sm={12} xs={12} lg={4}>
                 <TextField
@@ -86,7 +87,6 @@ const Experience = () => {
                   style={{ width: "100%" }}
                   value={experience.position}
                   onChange={(event) => handleInputChange(index, event)}
-                  required
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -108,7 +108,6 @@ const Experience = () => {
                   style={{ width: "100%" }}
                   value={experience.duration}
                   onChange={(event) => handleInputChange(index, event)}
-                  required
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -132,7 +131,6 @@ const Experience = () => {
                   style={{ width: "100%" }}
                   value={experience.desc}
                   onChange={(event) => handleInputChange(index, event)}
-                  required
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -147,7 +145,12 @@ const Experience = () => {
             </Grid>
           </div>
         ))}
-        <Button variant="contained" color="primary" sx={{marginTop:'8px'}} onClick={handleAddExperience}>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ marginTop: "8px" }}
+          onClick={handleAddExperience}
+        >
           Add Experience
         </Button>
       </CardContent>

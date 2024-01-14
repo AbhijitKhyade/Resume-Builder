@@ -127,6 +127,7 @@ const Profile = () => {
                 name="mobile"
                 label="MobileNo"
                 style={{ width: "100%" }}
+                required
                 value={profile.mobile}
                 onChange={handleChange}
                 InputProps={{
