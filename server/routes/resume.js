@@ -3,6 +3,6 @@ const { generateResume } = require('../controllers/resumeController');
 
 const router = express.Router();
 
-router.post('/api/generateResume', generateResume);
+router.post('/generateResume', generateResume);
 
 module.exports = router;
