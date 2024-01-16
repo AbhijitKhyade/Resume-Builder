@@ -1,32 +1,15 @@
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Paper,
-  Typography,
-} from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, Button, Link, Paper } from "@mui/material";
+import React, { useState } from "react";
 import Profile from "../components/Profile";
 import Education from "./../components/Education";
 import Projects from "../components/Projects";
 import Experience from "./../components/Experience";
 import ExtraDetails from "../components/ExtraDetails";
-import axios from "axios";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [activeComponent, setActiveComponent] = useState("profile");
-  const [downloadDialogOpen, setDownloadDialogOpen] = useState(false);
-  const [resumeData, setResumeData] = useState(null);
-
-  const profile = useSelector((state) => state.profileDetails);
-  const education = useSelector((state) => state.educationDetails);
-  const projects = useSelector((state) => state.projectDetails);
-  const experience = useSelector((state) => state.experienceDetails);
-  const extraDetails = useSelector((state) => state.extraDetails);
+  const navigate = useNavigate();
 
   //handling next
   const handleNext = () => {
@@ -84,52 +67,8 @@ const Home = () => {
     }
   };
 
-  // const handleDownloadDialogOpen = () => {
-  //   setDownloadDialogOpen(true);
-  // };
-
-  // const handleDownloadDialogClose = () => {
-  //   setDownloadDialogOpen(false);
-  // };
-
-  const handleGenerateResume = async () => {
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/resume/generateResume",
-        {
-          userData: {
-            profile,
-            education,
-            projects,
-            experience,
-            extraDetails,
-          },
-        }
-      );
-      // console.log(response.data.data);
-      const pdfData = response.data.pdf;
-
-      // Convert the received PDF data into a Blob
-      const blob = new Blob([pdfData], { type: "application/pdf" });
-
-      // Create a link element to trigger the download
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "resume.pdf";
-
-      // Append the link to the document, trigger the click, and then remove the link
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      // Save the generated resume data (if needed)
-      setResumeData(response.data);
-
-      // Open the download dialog
-      // handleDownloadDialogOpen();
-    } catch (error) {
-      console.error("Error generating resume:", error);
-    }
+  const handleResume = () => {
+    navigate("/resume");
   };
 
   return (
@@ -169,32 +108,9 @@ const Home = () => {
           <div style={{ textAlign: "center", marginTop: 16 }}>
             {activeComponent === "extraDetails" && (
               <>
-                <Button variant="contained" onClick={handleGenerateResume}>
-                  Download
+                <Button variant="contained" onClick={handleResume}>
+                  Review Your Resume
                 </Button>
-                {/* <Dialog
-                  open={downloadDialogOpen}
-                  onClose={handleDownloadDialogClose}
-                >
-                  <DialogTitle>Download Confirmation</DialogTitle>
-                  <DialogContent>
-                    <Typography>
-                      Are you sure you want to download your Resume?
-                    </Typography>
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={handleDownloadDialogClose} color="primary">
-                      Cancel
-                    </Button>
-                    <Button
-                      onClick={handleDownloadDialogClose}
-                      color="primary"
-                      autoFocus
-                    >
-                      OK
-                    </Button>
-                  </DialogActions>
-                </Dialog> */}
               </>
             )}
           </div>
