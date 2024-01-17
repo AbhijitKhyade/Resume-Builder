@@ -1,9 +1,14 @@
-import { Box, Button, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, Grid, Link, Paper, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import { saveAs } from "file-saver";
 import html2pdf from "html2pdf.js";
 import "./resumeStyle.css";
+import github from "../assets/github.png";
+import leetcode from "../assets/leetcode.png";
+import codechef from "../assets/codechef.png";
+import codeforces from "../assets/codeforces.png";
+import DownloadIcon from "@mui/icons-material/Download";
 
 const Resume = () => {
   const profile = useSelector((state) => state.profileDetails);
@@ -39,7 +44,7 @@ const Resume = () => {
   const customStyle = {
     width: "715px",
     height: "auto",
-    padding: "40px",
+    padding: "30px",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
     backgroundColor: "#ffffff",
     display: "flex",
@@ -57,23 +62,20 @@ const Resume = () => {
           margin: "2vw",
         }}
       >
-        <Paper
-          className="resume-container"
-          elevation={2}
-          // sx={{ margin: "8px", height: "auto", width: "65%" }}
-          style={customStyle}
-        >
-          <Box className="resume-card">
+        <Paper className="resume-container" elevation={2} style={customStyle}>
+          <Box>
             {/* Heading */}
-            <Grid className="heading">
-              <h1>{profile.firstName} {profile.lastName}</h1>
-            </Grid>
-            <div className="resume-container">
+            <div className="title-container">
+              <h1 className="heading">
+                {profile.firstName} {profile.lastName}
+              </h1>
+            </div>
+            <div className="resume-content">
               {/* Left section */}
               <div className="left-section">
                 {/* User Info */}
-                <div className="info-list">
-                  <div className="info-list-item">
+                <div className="user-info">
+                  <div className="user-info-item">
                     <div className="icon">
                       <span>
                         <i className="fa-solid fa-phone" />
@@ -83,7 +85,7 @@ const Resume = () => {
                       <p>{profile.mobile}</p>
                     </div>
                   </div>
-                  <div className="info-list-item">
+                  <div className="user-info-item">
                     <div className="icon">
                       <span>
                         <i className="fa-solid fa-envelope" />
@@ -93,7 +95,7 @@ const Resume = () => {
                       <p>{profile.email}</p>
                     </div>
                   </div>
-                  <div className="info-list-item">
+                  <div className="user-info-item">
                     <div className="icon" style={{ fontSize: 18 }}>
                       <span>
                         <i className="fa-brands fa-linkedin" />
@@ -103,7 +105,7 @@ const Resume = () => {
                       <p>{profile.linkedIn}</p>
                     </div>
                   </div>
-                  <div className="info-list-item">
+                  <div className="user-info-item">
                     <div className="icon" style={{ fontSize: 18 }}>
                       <span>
                         <i className="fa-solid fa-location-dot" />
@@ -116,76 +118,203 @@ const Resume = () => {
                 </div>
 
                 {/* Education */}
-                <div className="section-title">Education</div>
-                {/* Repeat this block for each education level */}
-                <ul className="info-list">
-                  <li className="info-list-item">
-                    <h4>{education.college}</h4>
-                  </li>
-                  <li className="info-list-item">
-                    <p>{education.year}</p>
-                  </li>
-                  <li className="info-list-item">
-                    <p>{education.branch}</p>
-                  </li>
-                  <li className="info-list-item">
-                    <span><p>{education.startYear}-{education.endYear}</p>| <p>{education.city}</p></span>
-                  </li>
-                  <li className="info-list-item">
-                    <p>CGPA: {education.grades}</p>
-                  </li>
-                </ul>
+                <div className="education-info">
+                  <div className="heading">Education</div>
+                  {/* Part 1 */}
+                  <div className="info">
+                    <div className="college">
+                      Pune Institute of Computer Technology
+                    </div>
+                    <div className="clg-details">
+                      <p>T.E. IT Engineering</p>
+                      <p>
+                        <span>2021-2025 | Pune</span>
+                      </p>
+                      <p>SGPA: 9.71</p>
+                    </div>
+                  </div>
+                  {/* Part 2 */}
+                  <div className="info">
+                    <div className="higher-clg">Sangameshwar College</div>
+                    <div className="clg-details">
+                      <p>
+                        <span>2019-2021 | Solapur</span>
+                      </p>
+                      <p>Class XII Percentage: 96.16%</p>
+                    </div>
+                  </div>
+                  {/* Part 3 */}
+                  <div className="info">
+                    <div className="school">Mahatma Phule Vidyalaya School</div>
+                    <div className="school-details">
+                      <p>
+                        <span>2018-2019 | South Solapur, Mandrup</span>
+                      </p>
+                      <p>Class X Percentage: 96.00%</p>
+                    </div>
+                  </div>
+                </div>
 
-                {/* Extra Details */}
-                <div className="section-title">Skills</div>
-                <ul className="info-list">
-                  <li className="info-list-item">Skill 1</li>
-                  <li className="info-list-item">Skill 2</li>
-                  {/* Add more skills */}
-                </ul>
-                <div className="section-title">Hobbies/Interests</div>
-                <ul className="info-list">
-                  <li className="info-list-item">Hobby 1</li>
-                  <li className="info-list-item">Hobby 2</li>
-                  {/* Add more hobbies */}
-                </ul>
-                <div className="section-title">Extracurricular Activities</div>
-                <ul className="info-list">
-                  <li className="info-list-item">Activity 1</li>
-                  <li className="info-list-item">Activity 2</li>
-                  {/* Add more activities */}
-                </ul>
+                {/* Skills */}
+                <div className="skills">
+                  <div className="heading">Skills</div>
+                  <div className="skillSets">
+                    <li>&#11049; REACT</li>
+                    <li>&#11049; NODEJS</li>
+                  </div>
+                  <div className="div skillSets">
+                    <li>&#11049; REACT</li>
+                    <li>&#11049; NODEJS</li>
+                  </div>
+                  <div className="div skillSets">
+                    <li>&#11049; REACT</li>
+                    <li>&#11049; NODEJS</li>
+                  </div>
+                  <div className="div skillSets">
+                    <li>&#11049; REACT</li>
+                    <li>&#11049; NODEJS</li>
+                  </div>
+                </div>
+
+                {/* Hobbies */}
+                <div className="hobbies">
+                  <div className="heading">Hobbies</div>
+                  <div className="hobby-list">
+                    <li>&#11049; Playing Cricket</li>
+                    <li>&#11049; Playing Piano</li>
+                  </div>
+                </div>
+
+                {/* Links */}
+                <div className="links">
+                  <div className="heading">Links</div>
+                  <div className="linkSets">
+                    <div className="link-item">
+                      <img src={github} alt="github" />{" "}
+                      <Link className="link">www.github.com</Link>
+                    </div>
+                    <div className="link-item">
+                      <img src={leetcode} alt="github" />{" "}
+                      <Link className="link">www.leetcode.com</Link>
+                    </div>
+                    <div className="link-item">
+                      <img src={codechef} alt="github" />{" "}
+                      <Link className="link">www.codechef.com</Link>
+                    </div>
+                    <div className="link-item">
+                      <img src={codeforces} alt="github" />{" "}
+                      <Link className="link">www.codeforces.com</Link>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Extra Curricular */}
+                <div className="extra-curricular">
+                  <div className="heading">Extra Curricular</div>
+                  <div className="extra-list">
+                    <li>&#11049; Member of PCSB club</li>
+                    <li>&#11049; Volunteer in NSS club</li>
+                  </div>
+                </div>
               </div>
+
               {/* Right section */}
               <div className="right-section">
-                <div className="section-title">About Me</div>
-                <p>
-                  {"{"}About Me Description{"}"}
-                </p>
-                <div className="section-title">Experience</div>
-                <ul className="info-list">
-                  <li className="info-list-item">Experience 1</li>
-                  <li className="info-list-item">Experience 2</li>
-                  {/* Add more experiences */}
-                </ul>
-                <div className="section-title">Projects</div>
-                <ul className="info-list">
-                  <li className="info-list-item">Project 1</li>
-                  <li className="info-list-item">Project 2</li>
-                  {/* Add more projects */}
-                </ul>
-                <div className="section-title">Achievements</div>
-                <ul className="info-list">
-                  <li className="info-list-item">Achievement 1</li>
-                  <li className="info-list-item">Achievement 2</li>
-                  {/* Add more achievements */}
-                </ul>
+                {/* About me */}
+                <div className="about-me">
+                  <div className="heading">About Me</div>
+                  <p className="content">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Repellat qui harum debitis ea iste dignissimos iusto dolor
+                    ipsa temporibus. Sint sit placeat alias, vero veri excepturi
+                    repudiandae error esse neque. ipsa temporibus. Sint sit
+                    placeat alias.
+                  </p>
+                </div>
+
+                {/* Experience */}
+                <div className="experience">
+                  <div className="heading">Experience</div>
+                  <div className="expr-list">
+                    <div className="lists">
+                      <div className="name">1.StartUp Company</div>
+                      <p className="content">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Sunt aperiam eaque saepe eveniet minima sint.
+                      </p>
+                    </div>
+                    <div className="lists">
+                      <div className="name">2.StartUp Company</div>
+                      <p className="content">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Sunt aperiam eaque saepe eveniet minima sint.
+                      </p>
+                    </div>
+                    <div className="lists">
+                      <div className="name">3.StartUp Company</div>
+                      <p className="content">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Sunt aperiam eaque saepe eveniet minima sint.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Projects */}
+                <div className="projects">
+                  <div className="heading">Projects</div>
+                  <div className="pro-list">
+                    <div className="lists">
+                      <div className="name">1.Ecommerce</div>
+                      <p className="content">
+                        Lorem ipsum dolor sit amet consectetur dipisicing elit.
+                        Sunt aperiam eaque saepe eveniet minima sint.adipisicing
+                        elit. Lorem ipsum dolor sit amet consectetur.adipisicing
+                        elit. Sunt aperiam eaque saepe eveniet minima sint.
+                      </p>
+                    </div>
+                    <div className="lists">
+                      <div className="name">2.Stack Overflow</div>
+                      <p className="content">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Sunt aperiam eaque saepe eveniet minima sint.
+                      </p>
+                    </div>
+                    <div className="lists">
+                      <div className="name">3.Resume Builder</div>
+                      <p className="content">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Sunt aperiam eaque saepe eveniet minima sint.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Achievements */}
+                <div className="achievements">
+                  <div className="heading">Achievements</div>
+                  <div className="list">
+                    <li>
+                      &#11049; Lorem ipsum dolor sit, amet consectetur
+                      adipisicing elit. Maiores, repudiandae.
+                    </li>
+                    <li>
+                      &#11049; Lorem ipsum dolor sit, amet consectetur
+                      adipisicing elit. Laborum, cupiditate?
+                    </li>
+                  </div>
+                </div>
               </div>
             </div>
           </Box>
         </Paper>
 
-        <Button variant="contained" sx={{margin:'20px'}} onClick={handleDownload}>
+        <Button
+          variant="contained"
+          sx={{ margin: "20px" }}
+          onClick={handleDownload}
+          endIcon={<DownloadIcon />}
+        >
           Download
         </Button>
       </Box>
