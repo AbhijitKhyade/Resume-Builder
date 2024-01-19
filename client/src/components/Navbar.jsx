@@ -4,22 +4,22 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import resume from "../assets/resume.png";
+import logo from "../assets/profile.png";
 
 const Navbar = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <img src={resume} alt="resume" width={"40px"} height={"40px"} />
+          <img src={logo} alt="resume" width={"40px"} height={"40px"} />
           <Typography
-            variant="h6"
+            variant="h5"
             component="div"
-            sx={{ flexGrow: 1, marginLeft: "2px" }}
+            sx={{ flexGrow: 1, marginLeft: "2px", fontWeight: "600" }}
           >
             RESUME BUILDER
           </Typography>
-          <Button color="inherit">Contact Us</Button>
+          {/* <Button color="inherit">Contact Us</Button> */}
         </Toolbar>
       </AppBar>
     </Box>

@@ -82,6 +82,8 @@ const Projects = () => {
                   variant="outlined"
                   type="text"
                   name="description"
+                  multiline
+                  rows={4}
                   label={`Project Description`}
                   style={{ width: "100%" }}
                   value={project.description}

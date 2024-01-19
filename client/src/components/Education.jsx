@@ -37,8 +37,8 @@ const Education = () => {
   const years = Array.from({ length: 30 }, (_, index) => 2030 - index);
 
   const engineeringFields = [
-    "Computer Science",
-    "Information Technology",
+    "CS",
+    "IT",
     "EnTC",
     "Electrical",
     "Mechanical",

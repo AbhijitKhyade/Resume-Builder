@@ -8,17 +8,12 @@ body {
     font-family: "Arial", sans-serif;
     color: #4a454a;
     background-color: #FFECD6;
-    /* padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center; */
     height: 100vh;
 }
 
 .resume-container {
     display: flex;
     justify-content: space-between;
-    /* border: 2px solid; */
     padding: 5px;
 }
 
@@ -33,7 +28,6 @@ body {
     font-weight: 600;
     display: inline-block;
     border-bottom: 4px solid #4a454a;
-    /* border-bottom-left-radius: 10px; */
     width: 290px;
     margin-bottom: 10px;
     padding-bottom: 5px;
@@ -53,7 +47,6 @@ body {
     display: flex;
     justify-content: left;
     flex-direction: column;
-    /* border: 2px solid; */
     gap: 0.7vw;
     width: 36%;
 }
@@ -105,6 +98,7 @@ body {
     margin-top: 5px;
     text-transform: uppercase;
     font-weight: 600;
+    color: #4a454a;
 }
 
 .education-info .info .clg-details {
@@ -120,12 +114,14 @@ body {
     margin-top: 10px;
     text-transform: uppercase;
     font-weight: 600;
+    color: #4a454a;
 }
 
 .education-info .info .school {
     margin-top: 10px;
     text-transform: uppercase;
     font-weight: 600;
+    color: #4a454a;
 }
 
 .education-info .info .school-details {
@@ -152,14 +148,18 @@ body {
 
 .skills .skillSets {
     display: flex;
-    margin-left: 4px;
-    padding: 2px;
-    gap: 25px;
+    flex-wrap: wrap;
+    margin-left: -4px;
+    gap: 14px;
+    /* padding: 2px; */
+    /* border: 2px solid; */
 }
 
-.skills .skillSets li {
-    list-style: none;
+.skills .skillSets .value {
+    /* margin-right: 25px; */
     font-size: 14px;
+    margin-bottom: 10px;
+    white-space: nowrap;
 }
 
 /* Hobbies */
@@ -179,7 +179,7 @@ body {
     padding: 2px;
 }
 
-.hobbies .hobby-list li {
+.hobbies .hobby-list .value {
     list-style: none;
     font-size: 14px;
     margin-bottom: 2px;
@@ -215,7 +215,7 @@ body {
     height: 20px;
 }
 
-.links .linkSets .link-item .link{
+.links .linkSets .link-item .link {
     cursor: pointer;
     color: #4a454a;
     text-decoration: none;
@@ -239,7 +239,7 @@ body {
     padding: 2px;
 }
 
-.extra-curricular .extra-list li {
+.extra-curricular .extra-list .value {
     list-style: none;
     font-size: 14px;
     margin-bottom: 2px;
@@ -250,7 +250,6 @@ body {
 .right-section {
     width: 63%;
     margin-left: 10px;
-    /* border: 2px solid rebeccapurple; */
 }
 
 /* About me */
@@ -271,6 +270,7 @@ body {
 .about-me .content {
     text-align: justify;
     font-size: 14px;
+    text-align: justify;
 }
 
 /* Experience */
@@ -292,13 +292,24 @@ body {
 .experience .expr-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
+    text-align: justify;
 }
 
 .experience .expr-list .lists .name {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
     color: #4a454a;
+    gap: 2px;
+
+}
+
+
+.experience .expr-list .lists .content {
+    font-size: 14px;
+    margin-top: 4px;
+    text-align: justify;
+
 }
 
 /* Projects */
@@ -320,6 +331,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    text-align: justify;
 }
 
 .projects .pro-list .lists .name {
@@ -331,6 +343,8 @@ body {
 
 .projects .pro-list .lists .content {
     font-size: 14px;
+    margin-top: 4px;
+    text-align: justify;
 }
 
 

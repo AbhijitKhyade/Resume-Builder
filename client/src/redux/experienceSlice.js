@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = [
-    { institute: "", position: "", duration: "", desc: "" }
+    { institute: "", desc: "" }
 ];
 
 const experienceSlice = createSlice({
@@ -13,7 +13,7 @@ const experienceSlice = createSlice({
             state[index] = { ...state[index], [field]: value };
         },
         addExperience: (state) => {
-            state.push({ institute: "", position: "", duration: "", desc: "" });
+            state.push({ institute: "", desc: "" });
         },
     },
 });

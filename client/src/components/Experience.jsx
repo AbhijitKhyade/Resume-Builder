@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Card,
   CardContent,
@@ -55,7 +55,7 @@ const Experience = () => {
               Experience {index + 1}
             </Typography>
             <Grid container spacing={1} alignItems="center" lg={12}>
-              <Grid item md={4} sm={12} xs={12} lg={4}>
+              <Grid item md={12} sm={12} xs={12} lg={12}>
                 <TextField
                   margin="dense"
                   variant="outlined"
@@ -77,48 +77,6 @@ const Experience = () => {
                   }}
                 />
               </Grid>
-              <Grid item md={4} sm={12} xs={12} lg={4}>
-                <TextField
-                  margin="dense"
-                  variant="outlined"
-                  type="text"
-                  name="position"
-                  label="Position"
-                  style={{ width: "100%" }}
-                  value={experience.position}
-                  onChange={(event) => handleInputChange(index, event)}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton>
-                          <WorkIcon />
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
-              <Grid item md={4} sm={12} xs={12} lg={4}>
-                <TextField
-                  margin="dense"
-                  variant="outlined"
-                  type="text"
-                  name="duration"
-                  label="Duration"
-                  style={{ width: "100%" }}
-                  value={experience.duration}
-                  onChange={(event) => handleInputChange(index, event)}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton>
-                          <TimelapseIcon />
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
             </Grid>
             <Grid container spacing={1} alignItems="center" lg={12}>
               <Grid item md={12} sm={12} xs={12} lg={12}>
@@ -126,10 +84,13 @@ const Experience = () => {
                   margin="dense"
                   variant="outlined"
                   type="text"
+                  multiline
+                  rows={4}
                   name="desc"
                   label="Description"
                   style={{ width: "100%" }}
                   value={experience.desc}
+                  required
                   onChange={(event) => handleInputChange(index, event)}
                   InputProps={{
                     endAdornment: (

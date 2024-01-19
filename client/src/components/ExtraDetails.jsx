@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import InterestsIcon from "@mui/icons-material/Interests";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addSkills,
@@ -20,6 +21,8 @@ import {
   updateSkills,
   updateAchievements,
   updateHobbies,
+  updateExtraCoCurricular,
+  addExtraCoCurricular,
 } from "../redux/extraDetailsSlice";
 
 const ExtraDetails = () => {
@@ -33,6 +36,8 @@ const ExtraDetails = () => {
       dispatch(addAchievements());
     } else if (type === "hobbies") {
       dispatch(addHobbies());
+    } else if (type === "extraCoCurricular") {
+      dispatch(addExtraCoCurricular());
     }
   };
 
@@ -43,6 +48,8 @@ const ExtraDetails = () => {
       dispatch(updateAchievements({ index, value }));
     } else if (type === "hobbies") {
       dispatch(updateHobbies({ index, value }));
+    } else if (type === "extraCoCurricular") {
+      dispatch(updateExtraCoCurricular({ index, value }));
     }
   };
   const containerStyle = {
@@ -178,6 +185,52 @@ const ExtraDetails = () => {
             onClick={() => handleAddItem("hobbies")}
           >
             Add Hobby
+          </Button>
+        </div>
+
+        {/* Extra Curricular Activities */}
+        <div>
+          <Typography variant="h5" sx={{ marginTop: "8px" }}>
+            Extra Curricular Activities
+          </Typography>
+          <Grid container spacing={2} alignItems="center" lg={12}>
+            {extraDetails.extraCoCurricular.map((extraCurricular, index) => (
+              <Grid item md={4} sm={6} xs={12} key={index}>
+                <TextField
+                  margin="dense"
+                  variant="outlined"
+                  type="text"
+                  name={`extraCurricular${index + 1}`}
+                  label={`Extra-Curricular ${index + 1}`}
+                  style={{ width: "100%" }}
+                  value={extraCurricular}
+                  onChange={(e) =>
+                    handleInputChange(
+                      index,
+                      "extraCoCurricular",
+                      e.target.value
+                    )
+                  }
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton>
+                          <AutoAwesomeIcon />
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+            ))}
+          </Grid>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ marginTop: "15px" }}
+            onClick={() => handleAddItem("extraCoCurricular")}
+          >
+            Add Activities
           </Button>
         </div>
       </CardContent>

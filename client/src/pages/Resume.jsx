@@ -1,8 +1,10 @@
 import { Box, Button, Grid, Link, Paper, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { saveAs } from "file-saver";
 import html2pdf from "html2pdf.js";
+import Confetti from "react-confetti";
+
 import "./resumeStyle.css";
 import github from "../assets/github.png";
 import leetcode from "../assets/leetcode.png";
@@ -12,11 +14,20 @@ import DownloadIcon from "@mui/icons-material/Download";
 
 const Resume = () => {
   const profile = useSelector((state) => state.profileDetails);
-  console.log(profile);
   const education = useSelector((state) => state.educationDetails);
   const projects = useSelector((state) => state.projectDetails);
   const experience = useSelector((state) => state.experienceDetails);
   const extraDetails = useSelector((state) => state.extraDetails);
+  const [visitedBefore, setVisitedBefore] = useState(false);
+  const [congratsVisible, setCongratsVisible] = useState(false);
+
+  useEffect(() => {
+    const hasVisited = localStorage.getItem("visitedResumePage");
+    if (!hasVisited) {
+      setVisitedBefore(true);
+      localStorage.setItem("visitedResumePage", true);
+    }
+  }, []);
 
   const handleDownload = () => {
     try {
@@ -36,6 +47,8 @@ const Resume = () => {
           saveAs(pdf, "resume.pdf");
         });
       }
+      setCongratsVisible(true);
+      setTimeout(() => setCongratsVisible(false), 3000);
     } catch (error) {
       console.error("Error downloading resume:", error);
     }
@@ -53,6 +66,16 @@ const Resume = () => {
   };
   return (
     <>
+      <Confetti
+        width={window.innerWidth}
+        height={window.innerHeight}
+        numberOfPieces={congratsVisible ? 200 : 0}
+      />
+      {visitedBefore && (
+        <Typography sx={{ color: "red", marginBottom: "10px" }}>
+          Do not refresh the page to edit. Go back using the arrow.
+        </Typography>
+      )}
       <Box
         sx={{
           display: "flex",
@@ -60,10 +83,11 @@ const Resume = () => {
           alignItems: "center",
           flexDirection: "column",
           margin: "2vw",
+          flexGrow: 1,
         }}
       >
         <Paper className="resume-container" elevation={2} style={customStyle}>
-          <Box>
+          <Box sx={{ flexShrink: 4 }}>
             {/* Heading */}
             <div className="title-container">
               <h1 className="heading">
@@ -122,35 +146,45 @@ const Resume = () => {
                   <div className="heading">Education</div>
                   {/* Part 1 */}
                   <div className="info">
-                    <div className="college">
-                      Pune Institute of Computer Technology
-                    </div>
+                    <div className="college">{education.college}</div>
                     <div className="clg-details">
-                      <p>T.E. IT Engineering</p>
                       <p>
-                        <span>2021-2025 | Pune</span>
+                        {education.year} {education.branch} Engineering
                       </p>
-                      <p>SGPA: 9.71</p>
+                      <p>
+                        <span>
+                          {education.startYear}-{education.endYear} |{" "}
+                          {education.city}
+                        </span>
+                      </p>
+                      <p>CGPA: {education.grades}</p>
                     </div>
                   </div>
                   {/* Part 2 */}
                   <div className="info">
-                    <div className="higher-clg">Sangameshwar College</div>
+                    <div className="higher-clg">{education.higherCollege}</div>
                     <div className="clg-details">
                       <p>
-                        <span>2019-2021 | Solapur</span>
+                        <span>
+                          {education.startYear2}-{education.endYear2} |{" "}
+                          {education.city2}
+                        </span>
                       </p>
-                      <p>Class XII Percentage: 96.16%</p>
+                      <p>Class XII Percentage: {education.percentage}%</p>
                     </div>
                   </div>
                   {/* Part 3 */}
                   <div className="info">
-                    <div className="school">Mahatma Phule Vidyalaya School</div>
+                    <div className="school">{education.school}</div>
                     <div className="school-details">
                       <p>
-                        <span>2018-2019 | South Solapur, Mandrup</span>
+                        <span>
+                          {" "}
+                          {education.startYear3}-{education.endYear3} |{" "}
+                          {education.city3}
+                        </span>
                       </p>
-                      <p>Class X Percentage: 96.00%</p>
+                      <p>Class X Percentage: {education.percentage2}%</p>
                     </div>
                   </div>
                 </div>
@@ -159,20 +193,11 @@ const Resume = () => {
                 <div className="skills">
                   <div className="heading">Skills</div>
                   <div className="skillSets">
-                    <li>&#11049; REACT</li>
-                    <li>&#11049; NODEJS</li>
-                  </div>
-                  <div className="div skillSets">
-                    <li>&#11049; REACT</li>
-                    <li>&#11049; NODEJS</li>
-                  </div>
-                  <div className="div skillSets">
-                    <li>&#11049; REACT</li>
-                    <li>&#11049; NODEJS</li>
-                  </div>
-                  <div className="div skillSets">
-                    <li>&#11049; REACT</li>
-                    <li>&#11049; NODEJS</li>
+                    {extraDetails?.skills?.map((skill, index) => (
+                      <div className="value" key={index}>
+                        &#11049; {skill}
+                      </div>
+                    ))}
                   </div>
                 </div>
 
@@ -180,8 +205,11 @@ const Resume = () => {
                 <div className="hobbies">
                   <div className="heading">Hobbies</div>
                   <div className="hobby-list">
-                    <li>&#11049; Playing Cricket</li>
-                    <li>&#11049; Playing Piano</li>
+                    {extraDetails?.hobbies?.map((hobby, index) => (
+                      <div className="value" key={index}>
+                        &#11049; {hobby}
+                      </div>
+                    ))}
                   </div>
                 </div>
 
@@ -191,19 +219,19 @@ const Resume = () => {
                   <div className="linkSets">
                     <div className="link-item">
                       <img src={github} alt="github" />{" "}
-                      <Link className="link">www.github.com</Link>
+                      <Link className="link">{profile.github}</Link>
                     </div>
                     <div className="link-item">
                       <img src={leetcode} alt="github" />{" "}
-                      <Link className="link">www.leetcode.com</Link>
+                      <Link className="link">{profile.leetcode}</Link>
                     </div>
                     <div className="link-item">
                       <img src={codechef} alt="github" />{" "}
-                      <Link className="link">www.codechef.com</Link>
+                      <Link className="link">{profile.codechef}</Link>
                     </div>
                     <div className="link-item">
                       <img src={codeforces} alt="github" />{" "}
-                      <Link className="link">www.codeforces.com</Link>
+                      <Link className="link">{profile.codeforces}</Link>
                     </div>
                   </div>
                 </div>
@@ -212,8 +240,11 @@ const Resume = () => {
                 <div className="extra-curricular">
                   <div className="heading">Extra Curricular</div>
                   <div className="extra-list">
-                    <li>&#11049; Member of PCSB club</li>
-                    <li>&#11049; Volunteer in NSS club</li>
+                    {extraDetails?.extraCoCurricular?.map((extra, index) => (
+                      <div className="value" key={index}>
+                        &#11049; {extra}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -223,13 +254,7 @@ const Resume = () => {
                 {/* About me */}
                 <div className="about-me">
                   <div className="heading">About Me</div>
-                  <p className="content">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Repellat qui harum debitis ea iste dignissimos iusto dolor
-                    ipsa temporibus. Sint sit placeat alias, vero veri excepturi
-                    repudiandae error esse neque. ipsa temporibus. Sint sit
-                    placeat alias.
-                  </p>
+                  <p className="content">{profile.aboutMe}</p>
                 </div>
 
                 {/* Experience */}
@@ -237,25 +262,14 @@ const Resume = () => {
                   <div className="heading">Experience</div>
                   <div className="expr-list">
                     <div className="lists">
-                      <div className="name">1.StartUp Company</div>
-                      <p className="content">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Sunt aperiam eaque saepe eveniet minima sint.
-                      </p>
-                    </div>
-                    <div className="lists">
-                      <div className="name">2.StartUp Company</div>
-                      <p className="content">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Sunt aperiam eaque saepe eveniet minima sint.
-                      </p>
-                    </div>
-                    <div className="lists">
-                      <div className="name">3.StartUp Company</div>
-                      <p className="content">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Sunt aperiam eaque saepe eveniet minima sint.
-                      </p>
+                      {experience?.map((expr, index) => (
+                        <>
+                          <div key={index} className="name">
+                            {expr.institute}
+                          </div>
+                          <div className="content">{expr.desc}</div>
+                        </>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -265,27 +279,14 @@ const Resume = () => {
                   <div className="heading">Projects</div>
                   <div className="pro-list">
                     <div className="lists">
-                      <div className="name">1.Ecommerce</div>
-                      <p className="content">
-                        Lorem ipsum dolor sit amet consectetur dipisicing elit.
-                        Sunt aperiam eaque saepe eveniet minima sint.adipisicing
-                        elit. Lorem ipsum dolor sit amet consectetur.adipisicing
-                        elit. Sunt aperiam eaque saepe eveniet minima sint.
-                      </p>
-                    </div>
-                    <div className="lists">
-                      <div className="name">2.Stack Overflow</div>
-                      <p className="content">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Sunt aperiam eaque saepe eveniet minima sint.
-                      </p>
-                    </div>
-                    <div className="lists">
-                      <div className="name">3.Resume Builder</div>
-                      <p className="content">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Sunt aperiam eaque saepe eveniet minima sint.
-                      </p>
+                      {projects?.map((project, index) => (
+                        <>
+                          <div key={index} className="name">
+                            {project.title}
+                          </div>
+                          <p className="content">{project.description}</p>
+                        </>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -294,14 +295,9 @@ const Resume = () => {
                 <div className="achievements">
                   <div className="heading">Achievements</div>
                   <div className="list">
-                    <li>
-                      &#11049; Lorem ipsum dolor sit, amet consectetur
-                      adipisicing elit. Maiores, repudiandae.
-                    </li>
-                    <li>
-                      &#11049; Lorem ipsum dolor sit, amet consectetur
-                      adipisicing elit. Laborum, cupiditate?
-                    </li>
+                    {extraDetails?.achievements?.map((achieve, index) => (
+                      <div key={index}>&#11049; {achieve}</div>
+                    ))}
                   </div>
                 </div>
               </div>

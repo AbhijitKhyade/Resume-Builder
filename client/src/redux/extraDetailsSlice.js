@@ -5,6 +5,7 @@ const initialState = {
     skills: [],
     hobbies: [],
     achievements: [],
+    extraCoCurricular: [],
 };
 
 const extraDetailsSlice = createSlice({
@@ -32,6 +33,13 @@ const extraDetailsSlice = createSlice({
         addAchievements: (state) => {
             state.achievements.push("");
         },
+        updateExtraCoCurricular: (state, action) => {
+            const { index, value } = action.payload;
+            state.extraCoCurricular[index] = value;
+        },
+        addExtraCoCurricular: (state) => {
+            state.extraCoCurricular.push("");
+        },
     },
 });
 
@@ -42,6 +50,8 @@ export const {
     addHobbies,
     updateAchievements,
     addAchievements,
+    updateExtraCoCurricular,
+    addExtraCoCurricular
 } = extraDetailsSlice.actions;
 export const selectExtraDetails = (state) => state.extraDetails;
 export default extraDetailsSlice.reducer;
