@@ -1,15 +1,17 @@
 import { Box, Button, Link, Paper } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Profile from "../components/Profile";
 import Education from "./../components/Education";
 import Projects from "../components/Projects";
 import Experience from "./../components/Experience";
 import ExtraDetails from "../components/ExtraDetails";
 import { useNavigate } from "react-router-dom";
+import "./Home.css";
 
 const Home = () => {
   const [activeComponent, setActiveComponent] = useState("profile");
   const navigate = useNavigate();
+  const [showWelcome, setShowWelcome] = useState(false);
 
   //handling next
   const handleNext = () => {
@@ -23,6 +25,27 @@ const Home = () => {
       setActiveComponent("extraDetails");
     }
   };
+
+  useEffect(() => {
+    const hasVisited = localStorage.getItem("hasSeenWelcome");
+
+    if (!hasVisited) {
+      setShowWelcome(true);
+      localStorage.setItem("hasSeenWelcome", true);
+    }
+  }, []);
+
+  // Effect to hide the welcome message after 3 seconds
+  useEffect(() => {
+    let timeout;
+    if (showWelcome) {
+      timeout = setTimeout(() => {
+        setShowWelcome(false);
+      }, 3000);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [showWelcome]);
 
   //handling back
   const handleBack = () => {
@@ -74,6 +97,11 @@ const Home = () => {
   return (
     <Box style={containerStyle}>
       <Paper elevation={3} style={customStyle}>
+        {showWelcome && (
+          <div className="welcome-container">
+            <h1 className="welcome-text">Welcome!</h1>
+          </div>
+        )}
         {/* Render the appropriate step component based on the active step */}
         {activeComponent === "profile" && <Profile onNext={handleNext} />}
         {activeComponent === "educationalDetails" && (

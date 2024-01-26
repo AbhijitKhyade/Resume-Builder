@@ -65,7 +65,6 @@ const Experience = () => {
                   style={{ width: "100%" }}
                   value={experience.institute}
                   onChange={(event) => handleInputChange(index, event)}
-                  required
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -90,7 +89,6 @@ const Experience = () => {
                   label="Description"
                   style={{ width: "100%" }}
                   value={experience.desc}
-                  required
                   onChange={(event) => handleInputChange(index, event)}
                   InputProps={{
                     endAdornment: (

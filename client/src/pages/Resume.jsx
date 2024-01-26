@@ -72,7 +72,9 @@ const Resume = () => {
         numberOfPieces={congratsVisible ? 200 : 0}
       />
       {visitedBefore && (
-        <Typography sx={{ color: "red", marginBottom: "10px" }}>
+        <Typography
+          sx={{ color: "red", marginBottom: "10px", textAlign: "center" }}
+        >
           Do not refresh the page to edit. Go back using the arrow.
         </Typography>
       )}
@@ -99,46 +101,57 @@ const Resume = () => {
               <div className="left-section">
                 {/* User Info */}
                 <div className="user-info">
-                  <div className="user-info-item">
-                    <div className="icon">
-                      <span>
-                        <i className="fa-solid fa-phone" />
-                      </span>
+                  {profile.mobile && (
+                    <div className="user-info-item">
+                      <div className="icon">
+                        <span>
+                          <i className="fa-solid fa-phone" />
+                        </span>
+                      </div>
+                      <div className="content">
+                        <p>{profile.mobile}</p>
+                      </div>
                     </div>
-                    <div className="content">
-                      <p>{profile.mobile}</p>
+                  )}
+
+                  {profile.email && (
+                    <div className="user-info-item">
+                      <div className="icon">
+                        <span>
+                          <i className="fa-solid fa-envelope" />
+                        </span>
+                      </div>
+                      <div className="content">
+                        <p>{profile.email}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="user-info-item">
-                    <div className="icon">
-                      <span>
-                        <i className="fa-solid fa-envelope" />
-                      </span>
+                  )}
+
+                  {profile.linkedIn && (
+                    <div className="user-info-item">
+                      <div className="icon" style={{ fontSize: 18 }}>
+                        <span>
+                          <i className="fa-brands fa-linkedin" />
+                        </span>
+                      </div>
+                      <div className="content">
+                        <p>{profile.linkedIn}</p>
+                      </div>
                     </div>
-                    <div className="content">
-                      <p>{profile.email}</p>
+                  )}
+
+                  {profile.address && (
+                    <div className="user-info-item">
+                      <div className="icon" style={{ fontSize: 18 }}>
+                        <span>
+                          <i className="fa-solid fa-location-dot" />
+                        </span>
+                      </div>
+                      <div className="content">
+                        <p>{profile.address}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="user-info-item">
-                    <div className="icon" style={{ fontSize: 18 }}>
-                      <span>
-                        <i className="fa-brands fa-linkedin" />
-                      </span>
-                    </div>
-                    <div className="content">
-                      <p>{profile.linkedIn}</p>
-                    </div>
-                  </div>
-                  <div className="user-info-item">
-                    <div className="icon" style={{ fontSize: 18 }}>
-                      <span>
-                        <i className="fa-solid fa-location-dot" />
-                      </span>
-                    </div>
-                    <div className="content">
-                      <p>{profile.address}</p>
-                    </div>
-                  </div>
+                  )}
                 </div>
 
                 {/* Education */}
@@ -202,51 +215,83 @@ const Resume = () => {
                 </div>
 
                 {/* Hobbies */}
-                <div className="hobbies">
-                  <div className="heading">Hobbies</div>
-                  <div className="hobby-list">
-                    {extraDetails?.hobbies?.map((hobby, index) => (
-                      <div className="value" key={index}>
-                        &#11049; {hobby}
-                      </div>
-                    ))}
+                {extraDetails?.hobbies && extraDetails.hobbies.length > 0 && (
+                  <div className="hobbies">
+                    <div className="heading">Hobbies</div>
+                    <div className="hobby-list">
+                      {extraDetails.hobbies.map((hobby, index) => (
+                        <div className="value" key={index}>
+                          &#11049; {hobby}
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Links */}
+
                 <div className="links">
                   <div className="heading">Links</div>
                   <div className="linkSets">
                     <div className="link-item">
-                      <img src={github} alt="github" />{" "}
-                      <Link className="link">{profile.github}</Link>
+                      {profile.github && (
+                        <>
+                          <img src={github} alt="github" />
+                          <div className="ls">
+                            <Link className="link">{profile.github}</Link>
+                          </div>
+                        </>
+                      )}
                     </div>
                     <div className="link-item">
-                      <img src={leetcode} alt="github" />{" "}
-                      <Link className="link">{profile.leetcode}</Link>
+                      {profile.leetcode && (
+                        <>
+                          <img src={leetcode} alt="leetcode" />
+                          <div className="ls">
+                            <Link className="link">{profile.leetcode}</Link>
+                          </div>
+                        </>
+                      )}
                     </div>
                     <div className="link-item">
-                      <img src={codechef} alt="github" />{" "}
-                      <Link className="link">{profile.codechef}</Link>
+                      {profile.codechef && (
+                        <>
+                          <img src={codechef} alt="codechef" />
+                          <div className="ls">
+                            <Link className="link">{profile.codechef}</Link>
+                          </div>
+                        </>
+                      )}
                     </div>
                     <div className="link-item">
-                      <img src={codeforces} alt="github" />{" "}
-                      <Link className="link">{profile.codeforces}</Link>
+                      {profile.codeforces && (
+                        <>
+                          <img src={codeforces} alt="codeforces" />
+                          <div className="ls">
+                            <Link className="link">{profile.codeforces}</Link>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
 
                 {/* Extra Curricular */}
-                <div className="extra-curricular">
-                  <div className="heading">Extra Curricular</div>
-                  <div className="extra-list">
-                    {extraDetails?.extraCoCurricular?.map((extra, index) => (
-                      <div className="value" key={index}>
-                        &#11049; {extra}
+                {extraDetails?.extraCoCurricular &&
+                  extraDetails.extraCoCurricular.length > 0 && (
+                    <div className="extra-curricular">
+                      <div className="heading">Extra Curricular</div>
+                      <div className="extra-list">
+                        {extraDetails?.extraCoCurricular?.map(
+                          (extra, index) => (
+                            <div className="value" key={index}>
+                              &#11049; {extra}
+                            </div>
+                          )
+                        )}
                       </div>
-                    ))}
-                  </div>
-                </div>
+                    </div>
+                  )}
               </div>
 
               {/* Right section */}
@@ -258,21 +303,22 @@ const Resume = () => {
                 </div>
 
                 {/* Experience */}
-                <div className="experience">
-                  <div className="heading">Experience</div>
-                  <div className="expr-list">
-                    <div className="lists">
-                      {experience?.map((expr, index) => (
-                        <>
+
+                {experience?.length > 0 && (
+                  <div className="experience">
+                    <div className="heading">Experience</div>
+                    <div className="expr-list">
+                      <div className="lists">
+                        {experience.map((expr, index) => (
                           <div key={index} className="name">
                             {expr.institute}
+                            <div className="content">{expr.desc}</div>
                           </div>
-                          <div className="content">{expr.desc}</div>
-                        </>
-                      ))}
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
 
                 {/* Projects */}
                 <div className="projects">

@@ -99,6 +99,8 @@ body {
     text-transform: uppercase;
     font-weight: 600;
     color: #4a454a;
+    /* background-color: crimson; */
+    width: 80%;
 }
 
 .education-info .info .clg-details {
@@ -115,6 +117,8 @@ body {
     text-transform: uppercase;
     font-weight: 600;
     color: #4a454a;
+    /* background-color: crimson; */
+    width: 80%;
 }
 
 .education-info .info .school {
@@ -122,6 +126,8 @@ body {
     text-transform: uppercase;
     font-weight: 600;
     color: #4a454a;
+    /* background-color: crimson; */
+    width: 80%;
 }
 
 .education-info .info .school-details {
@@ -146,20 +152,22 @@ body {
     color: #4a454a;
 }
 
+
 .skills .skillSets {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     margin-left: -4px;
-    gap: 14px;
-    /* padding: 2px; */
+    flex-wrap: wrap;
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* Two columns with equal width */
+    gap: 0px;
     /* border: 2px solid; */
-}
+  }
 
 .skills .skillSets .value {
     /* margin-right: 25px; */
     font-size: 14px;
     margin-bottom: 10px;
-    white-space: nowrap;
+    word-wrap: break-word;
+    /* background-color: crimson; */
 }
 
 /* Hobbies */
@@ -201,7 +209,10 @@ body {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    flex-wrap: wrap
 }
+
+
 
 .links .linkSets .link-item {
     font-size: 14px;
@@ -215,10 +226,18 @@ body {
     height: 20px;
 }
 
+.links .linkSets .link-item .ls {
+    /* background-color: red; */
+    width: 80%;
+}
+
+
 .links .linkSets .link-item .link {
     cursor: pointer;
     color: #4a454a;
     text-decoration: none;
+    width: 90%;
+    /* border: 2px solid; */
 }
 
 
@@ -269,7 +288,7 @@ body {
 
 .about-me .content {
     text-align: justify;
-    font-size: 14px;
+    font-size: 12px;
     text-align: justify;
 }
 
@@ -286,7 +305,6 @@ body {
     text-transform: uppercase;
     font-weight: 700;
     color: #4a454a;
-    margin-bottom: 4px;
 }
 
 .experience .expr-list {
@@ -301,12 +319,12 @@ body {
     font-weight: 600;
     color: #4a454a;
     gap: 2px;
-
+    margin-top: 10px;
 }
 
 
 .experience .expr-list .lists .content {
-    font-size: 14px;
+    font-size: 12px;
     margin-top: 4px;
     text-align: justify;
 
@@ -338,11 +356,11 @@ body {
     font-size: 15px;
     font-weight: 600;
     color: #4a454a;
-    margin-bottom: 1px;
+    margin-top: 8px;
 }
 
 .projects .pro-list .lists .content {
-    font-size: 14px;
+    font-size: 12px;
     margin-top: 4px;
     text-align: justify;
 }
