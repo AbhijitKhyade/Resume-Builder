@@ -75,7 +75,7 @@ const Resume = () => {
         <Typography
           sx={{ color: "red", marginBottom: "10px", textAlign: "center" }}
         >
-          Do not refresh the page to edit. Go back using the arrow.
+          Do not refresh the page.To edit, Go back using the arrow or click on logo.
         </Typography>
       )}
       <Box
