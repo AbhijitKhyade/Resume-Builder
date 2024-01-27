@@ -15,6 +15,17 @@
 
 ## Link 
 Check and create your Resume in minutes
-
+https://resume-builder-1729.vercel.app/
 
 ##Screenshots
+
+#Personal Details
+<img width="949" alt="Screenshot 2024-01-27 232613" src="https://github.com/AbhijitKhyade/Resume-Builder/assets/129264746/a49a4b1f-9eee-4fe2-ba73-5ee24eb650ba">
+
+#Educational Details
+
+![Screenshot (203)](https://github.com/AbhijitKhyade/Resume-Builder/assets/129264746/22a89bed-803a-4da8-b3a8-69941ef01690)
+
+#Final Resume
+![Screenshot (207)](https://github.com/AbhijitKhyade/Resume-Builder/assets/129264746/0eed6449-d35c-412f-af22-9364fdd9e47b)
+ 
