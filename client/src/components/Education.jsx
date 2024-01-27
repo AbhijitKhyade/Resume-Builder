@@ -402,7 +402,7 @@ const Education = () => {
           <Grid container spacing={2} alignItems="center" lg={12} m={1}>
             <div>
               <Typography variant="h6" align="left">
-                Secondary education (12th) Details
+                Secondary education (10th) Details
               </Typography>
             </div>
             {/* Row 1 */}
