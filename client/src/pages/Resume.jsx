@@ -75,7 +75,8 @@ const Resume = () => {
         <Typography
           sx={{ color: "red", marginBottom: "10px", textAlign: "center" }}
         >
-          Do not refresh the page.To edit, Go back using the arrow or click on logo.
+          Do not refresh the page.To edit, Go back using the arrow or click on
+          logo.
         </Typography>
       )}
       <Box
@@ -310,10 +311,12 @@ const Resume = () => {
                     <div className="expr-list">
                       <div className="lists">
                         {experience.map((expr, index) => (
-                          <div key={index} className="name">
-                            {expr.institute}
+                          <>
+                            <div key={index} className="name">
+                              {expr.institute}
+                            </div>
                             <div className="content">{expr.desc}</div>
-                          </div>
+                          </>
                         ))}
                       </div>
                     </div>
