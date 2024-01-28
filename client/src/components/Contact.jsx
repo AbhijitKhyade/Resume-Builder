@@ -76,7 +76,7 @@ const Contact = () => {
             >
               <MailOutline />
             </IconButton>
-            <Typography>Email: abhikhyade07@gmail.com</Typography>
+            <Typography>Email: abhijitkhyade@gmail.com</Typography>
           </div>
 
           <div
