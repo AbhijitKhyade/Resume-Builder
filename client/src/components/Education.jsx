@@ -434,11 +434,11 @@ const Education = () => {
                   select
                   margin="dense"
                   variant="outlined"
-                  name="startYear"
+                  name="startYear3"
                   label="Start Year"
                   style={{ width: "100%" }}
                   onChange={handleChange}
-                  value={education.startYear}
+                  value={education.startYear3}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -464,10 +464,10 @@ const Education = () => {
                   select
                   margin="dense"
                   variant="outlined"
-                  name="endYear"
+                  name="endYear3"
                   label="End Year"
                   style={{ width: "100%" }}
-                  value={education.endYear}
+                  value={education.endYear3}
                   onChange={handleChange}
                   InputProps={{
                     endAdornment: (
